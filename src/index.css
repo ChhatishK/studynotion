@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+    overflow-x: hidden;
+}
+
+.homepage-bg {
+    background-image: url('./assets/Images/bghome.svg');
+}
+
+.custom-shadow {
+    box-shadow: 10px 10px rgb(228, 228, 3);
+}
+
+input, textarea {
+    all: unset;
+}
+
+.text-gradient {
+    background: linear-gradient(#19B4D3, #7FE3C5);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+.yellow-gradient {
+    background: linear-gradient(#AF5220, #be9a17);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+.red-gradient {
+    background: linear-gradient(#AF5220, #C01E34);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
