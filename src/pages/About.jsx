@@ -1,5 +1,4 @@
 import React from 'react'
-import HighlightText from '../components/cores/HomePage/HighlightText'
 
 import BannerImage1 from '../assets/Images/aboutus1.webp';
 import BannerImage2 from '../assets/Images/aboutus2.webp';
