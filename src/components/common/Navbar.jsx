@@ -69,7 +69,7 @@ const Navbar = () => {
                                                 <div className='invisible group-hover:visible absolute left-[50%] top-[50%]
                                                 translate-x-[-60%]
                                                 translate-y-[15%]                                                flex flex-col rounded-md bg-richblack-5 p-4 text-richblack-900 opacity-0 trasnition-all duration-200
-                                                group-hover:opacity-100 lg:w-[300px]'>
+                                                group-hover:opacity-100 lg:w-[300px] z-[9999]'>
                                                     
                                                     <div className='absolute right-[32%] top-1 h-6 w-6 
                                                     translate-x-[68%]

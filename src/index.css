@@ -33,8 +33,44 @@ input, textarea {
 }
 
 .red-gradient {
-    background: linear-gradient(#AF5220, #C01E34);
+    background: linear-gradient(45rad, #A53289, #FD2D21, #FC7836);
     color: transparent;
     background-clip: text;
     -webkit-background-clip: text;
 }
+
+.shadow-img {
+    box-shadow: 1px 0px 15px 6px #5F2C33;
+}
+
+.gradient {
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #afb2bf;
+  }
+  
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: #000814;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: #afb2bf;
+    border-radius: 10px;
+    visibility: hidden;
+  }
+  
+  *:active::-webkit-scrollbar-thumb,
+  *:focus::-webkit-scrollbar-thumb,
+  *:hover::-webkit-scrollbar-thumb {
+    visibility: visible;
+  }

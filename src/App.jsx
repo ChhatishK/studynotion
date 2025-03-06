@@ -12,13 +12,19 @@ import Navbar from './components/common/Navbar'
 import OpenRoute from './components/cores/Auth/openRoute'
 
 import Dashboard from './pages/Dashboard'
+import MyProfile from './components/cores/Dashboard/MyProfile'
 
 import About from './pages/About';
+
+import PrivateRoute from './components/cores/Auth/PrivateRoute'
+
+import Error from './pages/Error'
+import Settings from './components/cores/Dashboard/Settings'
 
 const App = () => {
 
   return (
-    <div className="relative w-screen min-h-screen bg-richblack-900 flex flex-col font-inter text-richblack-5">
+    <div className="relative w-screen min-h-screen bg-richblack-900 flex flex-col font-medium text-richblack-5">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
@@ -40,12 +46,41 @@ const App = () => {
         <Route path='/verify' element={<Verify />}></Route>
         <Route path='reset-password' element={<ResetPassword />}></Route>
         <Route path='/resend-email' element={<ResendEmail />}></Route>
-        <Route path='/update-password/:id' element={<ChooseNewPassword />}></Route>
+
+        <Route path='/update-password/:id' element={
+          <OpenRoute>
+            <ChooseNewPassword />
+          </OpenRoute>}>
+        </Route>
+
         <Route path='/reset-complete' element={<ResetComplete />}></Route>
 
-        <Route path='/dashboard/my-profile' element={<Dashboard />}></Route>
-
         <Route path='/about' element={<About />}></Route>
+
+        <Route
+        
+         element={
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+         } 
+         >
+
+          <Route path='/dashboard/my-profile' 
+          element={
+            <MyProfile />
+          } />
+
+          <Route path='/dashboard/settings' 
+          element={
+            <Settings />
+          } />
+
+
+         </Route>
+
+       <Route path="*" element={<Error />} />
+
       </Routes>
 
     </div>

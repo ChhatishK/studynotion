@@ -1,44 +1,80 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {sidebarLinks} from '../../../data/dashboard-links';
 import SidebarLinks from './SidebarLinks';
-import { Link } from 'react-router-dom';
-import { CiSettings } from 'react-icons/ci';
+
+import {logout} from '../../../services/operations/authAPI'
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { VscSignOut } from 'react-icons/vsc';
-import { CgProfile } from 'react-icons/cg';
+import ConfirmModal from '../../common/ConfirmModal';
 
 
 const Sidebar = () => {
 
-    console.log(SidebarLinks)
+  const {user, loading: profileLoading} = useSelector((state) => state.profile);
+
+  const {loading: authLoading} = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+  const navigate= useNavigate();
+
+  const [confirmModal, setConfirmModal] = useState(null);
+
+  if (profileLoading || authLoading) {
+    return (
+      <div className='mt-10'>
+        Loading...
+      </div>
+    )
+  }
+  
   return (
     <div>
-        <div className='w-[220px] h-[685px] border-r border-richblack-700 pl-10 text-[14px] text-richblack-300 flex-col gap-4 bg-richblack-800'>
+        <div className='flex flex-col min-w-[222px] h-[calc(100vh-3.5rem)] pt-10 border-r border-richblack-700 text-richblack-300  bg-richblack-800'>
             {/* Sidebar */}
-            <div className='flex flex-col gap-3 pt-10'>
-              <Link to='/dashboard/my-profile' className='flex gap-2'>
-                <CgProfile />
-                <span>My Profile</span>
-              </Link>
-              {sidebarLinks.map((link, index) => (
-                <SidebarLinks key={index} link={link} />
-              ))}
-            </div>
-            
-            <div className='h-[1px] w-full bg-richblack-700 mt-4'></div>
 
-            <div className='flex flex-col gap-3 mt-5 '>
-              <Link className='flex gap-3 items-center'>
-                <CiSettings size={20} />
-                <span>Settings</span>
-              </Link>
+            <div className='flex flex-col'>
+                {
+                  sidebarLinks.map((link) => {
+                    if (link.type && user?.accountType !== link.type) return null;
 
-              <Link className='flex gap-3 items-center'>
-                <VscSignOut size={20} />
-                <span>Logout</span>
-              </Link>
+                    return (
+                      <SidebarLinks link={link} iconName={link.icon} key={link.id}/>
+                    )
+                  })
+                }
             </div>
 
+            <div className='mx-auto mt-6 mb-6 h-[1px] w-10/12 bg-richblack-600'></div>
+
+            <div className='flex flex-col'>
+                <SidebarLinks link={{name: "Settings", path: "dashboard/settings"}} iconName="VscSettingsGear" />
+
+                <button
+                  onClick={() => setConfirmModal({
+                    text1: "Are Your Sure?",
+                    text2: "You will be logged out of your Account",
+                    btn1Text: "Logout",
+                    btn2Text: "Cancel",
+                    btn1Handler: () => dispatchEvent(logout(navigate)),
+                    btn2Handler: () => setConfirmModal(null)
+                  })}
+
+                >
+
+                  <div className='flex items-center gap-x-2'>
+                    <VscSignOut className='text-lg' />
+                    <span>Logout</span>
+                  </div>
+
+                </button>
+            </div>
         </div>
+
+        {
+        confirmModal && <ConfirmModal modalData={confirmModal} />
+        }
+
     </div>
   )
 }
