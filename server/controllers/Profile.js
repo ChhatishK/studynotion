@@ -9,7 +9,8 @@ require('dotenv').config();
 exports.updateProfile = async (req, res) => {
     try {
         // fetch data
-        const {gender, about="", contactNumber, dateOfBirth=""} = req.body;
+        console.log("Request: "+req);
+        const {gender, about="Yet to be added", contactNumber, dateOfBirth} = req.body;
         const userId = req.user.id;
         // validation
         if (!userId || !gender || !contactNumber) {
@@ -32,7 +33,7 @@ exports.updateProfile = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "User profile updated successfully!",
-            updatedProfile
+            data: updatedProfile
         })
 
     } catch (error) {
@@ -192,7 +193,8 @@ exports.updateDisplayPicture = async (req, res) => {
         if (!userDetails) {
             return res.status(400).json({
                 success: false,
-                message: 'user details not found.'
+                message: 'user details not found.',
+                data: userDetails
             });
         }
 
@@ -200,7 +202,7 @@ exports.updateDisplayPicture = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: 'profile picture updated successfully.',
-            picture: userDetails
+            data: userDetails
         })
 
 

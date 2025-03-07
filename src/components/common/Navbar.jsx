@@ -16,10 +16,6 @@ const Navbar = () => {
     const {user} = useSelector((state) => state.profile);
     const {totalItems} = useSelector((state) => state.cart);
 
-    console.log(token);
-    console.log(user);
-
-
     // api call for categories
     const [subLinks, setSubLinks] = useState([]);
 

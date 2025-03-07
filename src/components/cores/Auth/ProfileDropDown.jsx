@@ -19,8 +19,8 @@ const ProfileDropDown = () => {
   useOnClickOutside(ref, () => setOpen(false))
 
   if (!user) return;
-  console.log("user: ",user)
-  console.log(user._id)
+  // console.log("user: ",user)
+  // console.log(user._id)
 
   return (
     <button className='relative' onClick={() => setOpen(true)}>

@@ -20,6 +20,7 @@ import PrivateRoute from './components/cores/Auth/PrivateRoute'
 
 import Error from './pages/Error'
 import Settings from './components/cores/Dashboard/Settings'
+import Contactus from './pages/Contactus'
 
 const App = () => {
 
@@ -76,10 +77,14 @@ const App = () => {
             <Settings />
           } />
 
+          <Route path='/dashboard/*' element={<Error />} />
+
 
          </Route>
 
-       <Route path="*" element={<Error />} />
+      <Route path='*' element={<Error />} />
+
+       <Route path='/contact' element={<Contactus />} />
 
       </Routes>
 

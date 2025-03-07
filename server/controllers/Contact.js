@@ -1,6 +1,7 @@
 const Contact = require('../models/ContactUs');
 const User = require('../models/User');
 const mailSender = require('../utils/mailSender');
+const StudyNotion = require('../../src/assets/Logo/Logo-Full-Light.png');
 
 // save contact us details
 exports.saveContact = async (req, res) => {
@@ -38,22 +39,35 @@ exports.saveContact = async (req, res) => {
 
         // send mail to the user
         let emailResponse = mailSender(email, "Welcome to StudyNotion", `
+                <div className='flex justify-center items-center bg-yellow-100 rounded-lg w-[150px] h-[80px]'>
+                    <img src={${StudyNotion}} alt="StudyNotion Logo" />
+                </div>
                 <p> Dear <b>${firstName} ${lastName} </b> </p>
 
-                <p>Your message has been sent to our support team they reach to you shortly.</p>
+                <p>Your message has been sent to our support team they will reach to you shortly.</p>
 
                 <b>Regards,</b>
                 <p>StudyNotion Support</p>
+                <p>support@studynotion.com</p>
             `)
         console.log("User email response: ",emailResponse);
 
         // send mail to the admin
         emailResponse = mailSender(process.env.MAIL_USER, "New Message - StudyNotion", `
+
+                <div className='flex justify-center items-center bg-yellow-100 rounded-lg w-[150px] h-[80px]'>
+                    <img src={${StudyNotion}} alt="StudyNotion Logo" />
+                </div>
+
                 <p>Dear <b>Support Team</b></p>
 
                 <p>You have received a new message from <b>${firstName} ${lastName}</b>.</p>
 
                 <p>${message}</p>
+
+                <b>Regards,</b>
+                <p>${firstName +" "+lastName}</p>
+                <p>${contactNumber}</p>
             `)
         console.log("Support Team response: ", emailResponse);
 
