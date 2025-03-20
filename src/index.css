@@ -15,7 +15,7 @@ html, body {
 }
 
 input, textarea {
-    all: unset;
+  outline: none;
 }
 
 .text-gradient {

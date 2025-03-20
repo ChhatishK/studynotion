@@ -22,7 +22,7 @@ const Navbar = () => {
     const fetchSubLinks = async() => {
         try {
             const result = await apiConnector('GET', courseEndpoints.COURSE_CATEGORIES_API);
-            setSubLinks(result.data.categories);
+            setSubLinks(result.data.data);
         } catch (error) {
             console.log("Could not fetch the category list.");
         }
@@ -89,7 +89,7 @@ const Navbar = () => {
                                             </div>
                                         ) : (
                                             <Link to={navlink?.path} >
-                                                <p className={`${matchRoute(navlink?.path) ? "text-yellow-5" : "text-richblack-300"}`}>
+                                                <p className={`${matchRoute(navlink?.path) ? "text-yellow-5" : "text-richblack-300"} hover:text-yellow-5`}>
                                                     {navlink.title}
                                                 </p>
                                             </Link>

@@ -39,7 +39,7 @@ exports.showAllCategories = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Categories fetched successfully!",
-            categories
+            data: categories
         })
     } catch (error) {
         return res.status(500).json({

@@ -219,7 +219,10 @@ exports.updateDisplayPicture = async (req, res) => {
 exports.getEnrolledCourses = async (req, res) => {
     try {
         // get user id
+        // console.log("BEfore token extraction!")
         const userId = req.user.id;
+
+        // console.log("Token : "+userId);
 
         if (!userId) {
             return res.status(400).json({
@@ -229,7 +232,7 @@ exports.getEnrolledCourses = async (req, res) => {
         }
 
         // find user 
-        const user = await User.findById(userId).populate('courses').exec();
+        const user = await User.findOne({_id: userId}).populate('courses').exec(); 
 
         if (!user) {
             return res.status(400).json({
@@ -241,7 +244,7 @@ exports.getEnrolledCourses = async (req, res) => {
         // return response
         return res.status(200).json({
             success: true,
-            message: 'Course details found successfully.',
+            message: 'Course details fetched successfully.',
             data: user
         })
 
@@ -250,6 +253,7 @@ exports.getEnrolledCourses = async (req, res) => {
         console.log(error);
         return res.status(500).json({
             success: false,
+            error: error.message,
             message: 'Enrolled courses cannot be fetched.'
         })
     }

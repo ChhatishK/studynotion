@@ -8,7 +8,6 @@ const MyProfile = () => {
 
     const {user} = useSelector((state) => state.profile);
     const navigate = useNavigate();
-    console.log(user);
 
   return (
     <>

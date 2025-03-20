@@ -8,7 +8,11 @@ const router = express.Router()
 const {
   createCourse,
   getAllCourses,
-  getCourseDetails
+  getCourseDetails,
+  getInstructorCourses,
+  editCourse,
+  getFullCourseDetails,
+  deleteCourse
 } = require('../controllers/Course')
 
 // Categories Controllers Import
@@ -60,10 +64,18 @@ router.post("/updateSubSection", auth, isInstructor, updateSubSection)
 router.post("/deleteSubSection", auth, isInstructor, deleteSubSection)
 // Add a Sub Section to a Section
 router.post("/addSubSection", auth, isInstructor, createSubSection)
+// edit course
+router.post('/editCourse', auth, isInstructor, editCourse);
 // Get all Registered Courses
 router.get("/getAllCourses", getAllCourses)
 // Get Details for a Specific Courses
 router.get("/getCourseDetails", getCourseDetails)
+// Get instructor all courses
+router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
+// Get full course details
+router.post("/getFullCourseDetails", auth, getFullCourseDetails);
+//Delete the course
+router.post('/deleteCourse', auth, isInstructor, deleteCourse);
 
 // ********************************************************************************************************
 //                                      Category routes (Only by Admin)
