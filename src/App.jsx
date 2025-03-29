@@ -29,6 +29,7 @@ import { useSelector } from 'react-redux'
 import {AddCourse} from './components/cores/Dashboard/AddCourses/index'
 import MyCourses from './components/cores/Dashboard/MyCourses'
 import EditCourse from './components/cores/Dashboard/AddCourses/EditCourse'
+import Catalog from './pages/Catalog'
 
 const App = () => {
 
@@ -39,6 +40,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/catalog/:catalogName" element={<Catalog />}></Route>
 
         <Route 
           path='/login' 

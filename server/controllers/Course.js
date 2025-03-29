@@ -48,7 +48,7 @@ exports.createCourse = async (req, res) => {
             });
         }
 
-        console.log('category matched!')
+        // console.log('category matched!');
         
         // upload to cloudinary
         const thumbnailImage = await uploadFileToCloudinary(thumbnail, process.env.FOLDER_NAME);
@@ -72,14 +72,14 @@ exports.createCourse = async (req, res) => {
             {
                 $push: {
                     courses: newCourse._id
-            }
+                }
         }, {new: true})
 
         // update the Category schema
         await Category.findByIdAndUpdate({_id: categoriesDetails._id},
             {
                 $push: {
-                    course: newCourse._id
+                    courses: newCourse._id
                 }
             }, {new: true}
         )

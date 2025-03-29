@@ -24,29 +24,29 @@ const Footer = () => {
                         </Link>
                         <p className="text-richblack-5 mt-2">Company</p>
                         <Link to={"/about"}>
-                            <p>About</p>
+                            <p className="hover:text-richblack-5">About</p>
                         </Link>
                         <Link to={"/careers"}>
-                            <p>Careers</p>
+                            <p className="hover:text-richblack-5">Careers</p>
                         </Link>
                         <Link to={"/affiliates"}>
-                            <p>Affiliates</p>
+                            <p className="hover:text-richblack-5">Affiliates</p>
                         </Link>
 
                         <div className="flex gap-3">
-                            <Link to={`/instagram`}>
+                            <Link to={`/instagram`} className="hover:text-richblack-5">
                                 <FaInstagram size={20} />
                             </Link>
-                            <Link to={`/facebook`}>
+                            <Link to={`/facebook`} className="hover:text-richblack-5">
                                 <FaFacebook size={20} />
                             </Link>
-                            <Link to={`/google`}>
+                            <Link to={`/google`} className="hover:text-richblack-5">
                                 <FaGoogle size={20} />
                             </Link>
-                            <Link to={`/twitter`}>
+                            <Link to={`/twitter`} className="hover:text-richblack-5">
                                 <FaTwitter size={20} />
                             </Link>
-                            <Link to={`/youtube`}>
+                            <Link to={`/youtube`} className="hover:text-richblack-5">
                                 <FaYoutube size={20} />
                             </Link>
                         </div>
@@ -57,18 +57,18 @@ const Footer = () => {
                     <div className="flex flex-col gap-8">
                         <div className="mt-1 flex flex-col gap-1">
                             <span className="text-richblack-5">Resources</span>
-                            <Link to="/articles">Articles</Link>
-                            <Link to="/blogs">Blog</Link>
-                            <Link to="/chart-sheet">Chart Sheet</Link>
-                            <Link to="/code-challenges">Code Challenges</Link>
-                            <Link to="/docs">Docs</Link>
-                            <Link to="/projects">Projects</Link>
-                            <Link to="/videos">Videos</Link>
-                            <Link to="/workspaces">Workspaces</Link>
+                            <Link to="/articles" className="hover:text-richblack-5">Articles</Link>
+                            <Link to="/blogs" className="hover:text-richblack-5">Blog</Link>
+                            <Link to="/chart-sheet" className="hover:text-richblack-5">Chart Sheet</Link>
+                            <Link to="/code-challenges" className="hover:text-richblack-5">Code Challenges</Link>
+                            <Link to="/docs" className="hover:text-richblack-5">Docs</Link>
+                            <Link to="/projects" className="hover:text-richblack-5">Projects</Link>
+                            <Link to="/videos" className="hover:text-richblack-5">Videos</Link>
+                            <Link to="/workspaces" className="hover:text-richblack-5">Workspaces</Link>
                         </div>
                         <div className="flex flex-col gap-1">
                             <span className="text-richblack-5">Support</span>
-                            <Link to="/help-center">Help Center</Link>
+                            <Link to="/help-center" className="hover:text-richblack-5">Help Center</Link>
                         </div>
                     </div>
 
@@ -76,17 +76,17 @@ const Footer = () => {
                     <div className="flex flex-col gap-8">
                         <div className="mt-1 flex flex-col gap-1">
                             <span className="text-richblack-5">Plans</span>
-                            <Link to="/paid-memberships">Pain Memberships</Link>
-                            <Link to="/for-students">For Students</Link>
-                            <Link to="/business-solutions">
+                            <Link to="/paid-memberships" className="hover:text-richblack-5">Pain Memberships</Link>
+                            <Link to="/for-students" className="hover:text-richblack-5">For Students</Link>
+                            <Link to="/business-solutions" className="hover:text-richblack-5">
                                 Business Solutions
                             </Link>
                         </div>
                         <div className="flex flex-col gap-1">
                             <span className="text-richblack-5">Community</span>
-                            <Link to="/forums">Forums</Link>
-                            <Link to="/chapters">Chapters</Link>
-                            <Link to="/events">Events</Link>
+                            <Link to="/forums" className="hover:text-richblack-5">Forums</Link>
+                            <Link to="/chapters" className="hover:text-richblack-5">Chapters</Link>
+                            <Link to="/events" className="hover:text-richblack-5">Events</Link>
                         </div>
                     </div>
                 </div>
@@ -101,9 +101,9 @@ const Footer = () => {
 
             <div className="w-full py-10 flex justify-center text-richblack-400">
                 <div className="flex gap-4">
-                    <Link to='/privacy-policy'>Privacy Policy</Link>
-                    <Link to='/cookie-policy'>Cookie Policy</Link>
-                    <Link to='/terms'>Terms</Link>
+                    <Link to='/privacy-policy' className="hover:text-richblack-5 hover:underline">Privacy Policy</Link>
+                    <Link to='/cookie-policy' className="hover:text-richblack-5 hover:underline">Cookie Policy</Link>
+                    <Link to='/terms' className="hover:text-richblack-5 hover:underline">Terms</Link>
                 </div>
             </div>
         </div>

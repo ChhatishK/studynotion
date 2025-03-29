@@ -77,7 +77,7 @@ const Navbar = () => {
                                                     <div className='flex flex-col'>
                                                         {
                                                             subLinks.map((links, index) => (
-                                                                <Link key={index} to={`/catalog/${links.name}`} className='p-2 hover:bg-richblack-25 rounded'>
+                                                                <Link key={index} to={`/catalog/${links.name.split(" ").join('-').toLowerCase()}`} className='p-2 hover:bg-richblack-25 rounded'>
                                                                     {links.name}
                                                                 </Link>
                                                             ))
