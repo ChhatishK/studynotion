@@ -2,10 +2,12 @@ import React, { useRef, useState } from 'react'
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 
 import IconBtn from '../../../common/IconBtn';
+import { useNavigate } from 'react-router-dom';
 
 const UpdatePassword = () => {
 
     const btnRef = useRef(null);
+    const navigate = useNavigate();
 
     const btnClick = () => {
         btnRef.current.click();
@@ -14,6 +16,10 @@ const UpdatePassword = () => {
     const [showOldPassword, setShowOldPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
 
+    function handleSubmit() {
+        
+    }
+
   return (
     <>
         <div className='bg-richblack-800 px-12 p-8 mt-14 rounded-lg border border-richblack-700'>
@@ -21,6 +27,7 @@ const UpdatePassword = () => {
 
             <form action=""
             className='grid grid-cols-2 gap-8'
+            onSubmit={handleSubmit}
             >
                 <div className='relative flex flex-col gap-2'>
                     <label htmlFor="currpassword">Current Password</label>
@@ -53,7 +60,7 @@ const UpdatePassword = () => {
                         onClick={() => setShowNewPassword((prev) => !prev)}
                         className='absolute right-3 top-[50%] translate-y-[50%] cursor-pointer'>
                             {
-                                showOldPassword? (
+                                showNewPassword? (
                                     <AiOutlineEyeInvisible />
                                 ) : (
                                     <AiOutlineEye />
@@ -63,7 +70,7 @@ const UpdatePassword = () => {
                 </div>
 
                 <button
-                type='submit'
+                type='Submit'
                 className='hidden'
                 ref={btnRef}
                 >
@@ -74,7 +81,8 @@ const UpdatePassword = () => {
 
         <div className='flex justify-end gap-x-4 mt-5'>
             <button
-            className='px-4 p-2 bg-richblack-500 rounded-lg'
+            className='px-4 p-2 bg-richblack-500 rounded-lg hover:scale-95'
+            onClick={() => navigate('/dashboard/my-profile')}
             >Cancel</button>
             <IconBtn
                 onClick={btnClick}

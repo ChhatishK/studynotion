@@ -1,10 +1,13 @@
 const Course = require('../models/Course');
 const Category = require('../models/Category');
+const mongoose = require('mongoose');
 const User = require('../models/User');
 const {uploadFileToCloudinary} = require('../utils/uploadImageToCloudinary');
 const {convertSecondsToDuration} = require('../utils/secToDuration');
 const Section = require('../models/Section');
 const SubSection = require('../models/SubSection');
+const CourseProgress = require('../models/CourseProgress');
+const RatingAndReview = require('../models/RatingAndReview');
 require('dotenv').config();
 
 
@@ -100,7 +103,6 @@ exports.createCourse = async (req, res) => {
     }
 }
 
-
 // edit course
 exports.editCourse = async (req, res) => {
     try {
@@ -109,6 +111,8 @@ exports.editCourse = async (req, res) => {
 
         const updates = req.body;
 
+        // const course_id = new mongoose.Types.ObjectId(courseId);
+        // console.log("Course id: ", course_id)
         const course = await Course.findById(courseId);
 
         if (!course) {
@@ -173,7 +177,9 @@ exports.editCourse = async (req, res) => {
 // get full course details
 exports.getFullCourseDetails = async (req, res) => {
     try {
-        const { courseId } = req.body
+        const { courseId } = req.body;
+        const userId = req.user.id;
+
         const courseDetails = await Course.findOne({
           _id: courseId,
         })
@@ -189,10 +195,11 @@ exports.getFullCourseDetails = async (req, res) => {
             path: "courseContent",
             populate: {
               path: "subSection",
-              select: "-videoUrl",
             },
           })
           .exec()
+
+        // console.log("Course Details: ", courseDetails)
     
         if (!courseDetails) {
           return res.status(400).json({
@@ -207,6 +214,13 @@ exports.getFullCourseDetails = async (req, res) => {
         //     message: `Accessing a draft course is forbidden`,
         //   });
         // }
+
+        const courseProgressCount = await CourseProgress.findOne({
+            courseId: courseId,
+            userId: userId
+        })
+
+        // console.log("CPC: ", courseProgressCount);
     
         let totalDurationInSeconds = 0
         courseDetails.courseContent.forEach((content) => {
@@ -223,6 +237,7 @@ exports.getFullCourseDetails = async (req, res) => {
           data: {
             courseDetails,
             totalDuration,
+            completedVideos: courseProgressCount?.completedVideos ? courseProgressCount?.completedVideos : []
           },
         })
       } catch (error) {
@@ -258,13 +273,18 @@ exports.getAllCourses = async (req, res) => {
 }
 
 
-// get all course with their details
+// get course with their details
 exports.getCourseDetails = async (req, res) => {
     try {
         // get id
-        const {courseId} = req.body;
+        console.log("REQUEST BODY: ", req.body);
+        const { courseId } = req.body;
 
         // find course details
+        console.log("BEFORE COURSE_ID: ,", courseId)
+        // const course_id = new mongoose.Types.ObjectId(courseId);
+        // console.log("AFTER COURSE_ID: ,", course_id)
+
         const courseDetails = await Course.findById(
             {_id: courseId})
             .populate({
@@ -282,6 +302,8 @@ exports.getCourseDetails = async (req, res) => {
                 }
             }).exec();
 
+        // console.log("Course Details: ", courseDetails)
+
         // validation
         if (!courseDetails) {
             return res.status(400).json({
@@ -290,14 +312,27 @@ exports.getCourseDetails = async (req, res) => {
             })
         }
 
+        let totalDurationInSeconds = 0
+        courseDetails.courseContent.forEach((content) => {
+          content.subSection.forEach((subSection) => {
+            const timeDurationInSeconds = parseInt(subSection.timeDuration)
+            totalDurationInSeconds += timeDurationInSeconds
+          })
+        })
+    
+        const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
+
         // return response
         return res.status(200).json({
             success: true,
             message: "Course details fetched successfully!",
-            data: courseDetails
+            data: {
+                courseDetails,
+                totalDuration
+            }
         })
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
         return res.status(500).json({
             success: false,
             message: error.message
@@ -335,6 +370,7 @@ exports.deleteCourse = async (req, res) => {
     try {
 
         const {courseId} = req.body;
+        const userId = req.user.id;
 
         const course = await Course.findById(courseId);
 
@@ -375,6 +411,14 @@ exports.deleteCourse = async (req, res) => {
         }
 
         await Course.findByIdAndDelete(courseId);
+
+        await User.findByIdAndUpdate(userId,
+            {
+                $pull: {
+                    courses: courseId
+                }
+            }
+        )
 
         return res.status(200).json({
             success:true,

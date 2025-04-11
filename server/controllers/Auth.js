@@ -110,7 +110,7 @@ exports.signup = async (req, res) => {
             })
         }
 
-        console.log('password matched!')
+        // console.log('password matched!')
 
         // // check already registered user
         // const existingUser = await User.findOne({email});
@@ -252,7 +252,6 @@ exports.login = async (req, res) => {
 
 
 // change password
-// TODO - HOMEWORK  
 exports.changePassword = async (req, res) => {
     try {
         // fetch new password
@@ -264,6 +263,7 @@ exports.changePassword = async (req, res) => {
                 message: "All the fields are required!"
             });
         }
+        
         // get token
         const user = await User.findOne({token: token});
         // check previous password

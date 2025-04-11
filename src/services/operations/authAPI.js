@@ -46,7 +46,6 @@ export const sendOtp = (email, navigate) => {
     }
 }
 
-
 // signup handler
 export const signup = (
     firstName,
@@ -207,5 +206,23 @@ export const resetPassword = (password, confirmPassword, token, navigate) => {
 
         toast.dismiss(toastId);
         dispatch(setLoading(false));
+    }
+}
+
+export async function checkToken(token) {
+    try {
+
+        const response = await apiConnector("GET", "/",  null, {
+            Authorization: `Bearer ${token}`
+        });
+
+        console.log("Token Checking Data: ", response);
+
+        if (!response.data.success) {
+            localStorage.clear();
+        }
+
+    } catch (error) {
+        console.log(error);
     }
 }

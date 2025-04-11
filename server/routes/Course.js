@@ -12,7 +12,7 @@ const {
   getInstructorCourses,
   editCourse,
   getFullCourseDetails,
-  deleteCourse
+  deleteCourse,
 } = require('../controllers/Course')
 
 // Categories Controllers Import
@@ -45,6 +45,7 @@ const {
 
 // Importing Middlewares
 const { auth, isInstructor, isStudent, isAdmin } = require("../middleware/auth")
+const { lectureCompletion } = require("../controllers/courseProgress")
 
 // ********************************************************************************************************
 //                                      Course routes
@@ -69,7 +70,9 @@ router.post('/editCourse', auth, isInstructor, editCourse);
 // Get all Registered Courses
 router.get("/getAllCourses", getAllCourses)
 // Get Details for a Specific Courses
-router.get("/getCourseDetails", getCourseDetails)
+router.post("/getCourseDetails", getCourseDetails)
+//mark lecture completion
+router.post('/updateCourseProgress', auth, isStudent, lectureCompletion)
 // Get instructor all courses
 router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
 // Get full course details

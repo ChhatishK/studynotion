@@ -4,6 +4,7 @@ import IconBtn from '../../../common/IconBtn';
 import { FiUpload } from "react-icons/fi";
 import {updateDisplayPicture} from '../../../../services/operations/settingAPI';
 import toast from 'react-hot-toast';
+import { Navigate } from 'react-router-dom';
 
 const UploadPicture = () => {
 
@@ -43,11 +44,12 @@ const UploadPicture = () => {
         try {
             const formData = new FormData();
             formData.append('profilePicture', ImageFile);
-            dispatch(updateDisplayPicture(token, formData));
+            updateDisplayPicture(token, formData, dispatch);
         } catch (error) {
             console.log(error);
         }
         toast.dismiss(toastId);
+        Navigate('/dashboard/my-profile');
     }
     
 

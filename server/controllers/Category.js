@@ -66,8 +66,8 @@ exports.categoryPageDetails = async (req, res) => {
         const selectedCategory = await Category.findById(categoryId).populate({
             path: "courses",
             match: {status: 'Published'},
-            populate: "ratingAndReviews",
-            populate: "instructor"
+            populate: "instructor",
+            populate: "ratingAndReviews"
         }).exec();
 
         // no course found for selected category
@@ -89,7 +89,12 @@ exports.categoryPageDetails = async (req, res) => {
             CategoryExceptSelected[getRandomInt(CategoryExceptSelected.length)]._id)
             .populate({
                 path: 'courses',
-                match: {status: 'Published'}
+                match: {status: 'Published'},
+                populate: {
+                    path: "instructor"
+                },
+                populate: "ratingAndReviews"
+
             })
             .exec();
 
@@ -100,7 +105,8 @@ exports.categoryPageDetails = async (req, res) => {
             match: {status: "Published"},
             populate: {
                 path: "instructor"
-            }
+            },
+            populate: "ratingAndReviews"
         })
 
         //get top selling course

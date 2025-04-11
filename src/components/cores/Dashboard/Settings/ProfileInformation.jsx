@@ -24,13 +24,13 @@ const ProfileInformation = () => {
         formState: {errors}
     } = useForm();
 
-    const submitFormData = (data) => {
+    const submitFormData = async (data) => {
         try {
-            dispatch(updateProfile(user, data));
+            const res = await updateProfile(token, data);
+            console.log(res);
         } catch (error) {
             console.log(error);
         }
-        
     }
 
 
@@ -79,6 +79,7 @@ const ProfileInformation = () => {
                     <input type="date"
                     name='dob'
                     id='dob' 
+                    // defaultValue={user?.additionalDetails?.dateOfBirth}
                     className='form-style'
                     {...register('dob', {
                         required: {value: true, message: "Please choose your date of birth"},
@@ -145,7 +146,7 @@ const ProfileInformation = () => {
                 </div>
 
                 <button
-                type='submit'
+                type='Submit'
                 ref={btnRef}
                 className='hidden'
                 >
@@ -158,7 +159,8 @@ const ProfileInformation = () => {
         </div>
         <div className='flex justify-end gap-x-4 mt-5'>
             <button
-            className='px-4 p-2 bg-richblack-500 rounded-lg'
+            className='px-4 p-2 bg-richblack-500 rounded-lg hover:scale-95'
+            onClick={() => navigate('/dashboard/my-profile')}
             >Cancel</button>
             <IconBtn
                 onClick={btnClick}

@@ -10,8 +10,7 @@ const {
     UPDATE_PROFILE_API
 } = settingsEndpoints;
 
-export const updateDisplayPicture = (token, formData) => {
-    return async(dispatch) => {
+export const updateDisplayPicture = async (token, formData, dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
 
@@ -30,7 +29,7 @@ export const updateDisplayPicture = (token, formData) => {
             }
 
             toast.success("Profile picture updated!");
-            console.log("Picture uploading: "+response.data.data);
+            console.log("Picture uploading: ",response.data.data);
             localStorage.setItem('user', JSON.stringify(response.data.data));
             dispatch(setUser(JSON.stringify(response.data.data)));
 
@@ -41,7 +40,6 @@ export const updateDisplayPicture = (token, formData) => {
 
         toast.dismiss(toastId);
         dispatch(setLoading(false));
-    }
 }
 
 export const deleteAccount = (token) => {
@@ -67,8 +65,7 @@ export const deleteAccount = (token) => {
     }
 }
 
-export const updateProfile = (token, data) => {
-    return async (dispatch) => {
+export const updateProfile = async (token, data, dispatch) => {
         const toastId = toast.loading('Loading...');
 
         try {
@@ -93,5 +90,4 @@ export const updateProfile = (token, data) => {
         }
 
         toast.dismiss(toastId);
-    }
 }

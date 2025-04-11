@@ -1,16 +1,18 @@
 const Profile = require('../models/Profile');
 const User = require('../models/User');
+const CourseProgress = require('../models/CourseProgress')
 const cron = require('node-cron');
 const {uploadFileToCloudinary} = require('../utils/uploadImageToCloudinary');
 const mailSender = require('../utils/mailSender');
 require('dotenv').config();
+const {convertSecondsToDuration} = require('../utils/secToDuration')
 
 // update profile
 exports.updateProfile = async (req, res) => {
     try {
         // fetch data
         console.log("Request: "+req);
-        const {gender, about="Yet to be added", contactNumber, dateOfBirth} = req.body;
+        const {gender, about="Yet to be added", contactNumber, dob, firstName, lastName} = req.body;
         const userId = req.user.id;
         // validation
         if (!userId || !gender || !contactNumber) {
@@ -25,15 +27,23 @@ exports.updateProfile = async (req, res) => {
         const profileId = userDetails.additionalDetails;
 
         // update profile <-> can be re-arrange
-        const updatedProfile = await Profile.findByIdAndUpdate({_id: profileId}, {
-            gender:gender,about:about,contactNumber:contactNumber, dateOfBirth:dateOfBirth
+        await Profile.findByIdAndUpdate({_id: profileId}, {
+            gender:gender,about:about,contactNumber:contactNumber, dateOfBirth:dob
         }, {new: true})
+
+        if (firstName || lastName) {
+
+        }
+
+        const updatedUser = await User.findByIdAndUpdate({_id: userId}, {
+            $set: {firstName, lastName}
+        }, {new: true}).populate('additionalDetails').exec()
 
         // return response
         return res.status(200).json({
             success: true,
             message: "User profile updated successfully!",
-            data: updatedProfile
+            data: updatedUser
         })
 
     } catch (error) {
@@ -187,8 +197,8 @@ exports.updateDisplayPicture = async (req, res) => {
 
 
         const userDetails = await User.findByIdAndUpdate({_id: userId}, {
-            image: cloudinaryResponse.secure_url
-        });
+            $set: {image: cloudinaryResponse.secure_url}
+        }, {new: true}).populate('additionalDetails');
 
         if (!userDetails) {
             return res.status(400).json({
@@ -232,7 +242,48 @@ exports.getEnrolledCourses = async (req, res) => {
         }
 
         // find user 
-        const user = await User.findOne({_id: userId}).populate('courses').exec(); 
+        var user = await User.findOne({_id: userId})
+            .populate({
+                path:'courses',
+                populate: {
+                    path: "courseContent",
+                    populate: {
+                        path: "subSection"
+                    }
+                }
+            }).exec(); 
+
+        user = user.toObject();
+
+        var subSectionLength = 0;
+
+        for (var i = 0; i < user.courses.length; i++) {
+            let totalDurationInSeconds = 0;
+            subSectionLength = 0;
+            
+            for (var j = 0; j < user.courses[i].courseContent.length; j++) {
+                totalDurationInSeconds += user.courses[i].courseContent[j].subSection.reduce((acc, curr) => acc += parseInt(curr.timeDuration), 0)
+
+                user.courses[i].totalDuration = convertSecondsToDuration(totalDurationInSeconds);
+
+                subSectionLength += user.courses[i].courseContent[j].subSection.length;
+            }
+
+            let courseProgressCount = await CourseProgress.findOne({
+                courseId: user.courses[i]._id,
+                userId: userId
+            })
+
+            courseProgressCount = courseProgressCount?.completedVideos.length;
+
+            if (subSectionLength === 0) {
+                user.courses[i].progressPercentage = 100;
+            } else {
+                const multiplier = Math.pow(10, 2);
+
+                user.courses[i].progressPercentage = Math.round((courseProgressCount/subSectionLength)*100 * multiplier)/multiplier
+            }
+        }
 
         if (!user) {
             return res.status(400).json({

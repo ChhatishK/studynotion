@@ -6,8 +6,11 @@ const User = require('../models/User');
 // auth
 exports.auth = async (req, res, next) => {
     try {
+        
         // extract token
         const token = req.cookies.token || req.body.token || req.header("Authorization").replace("Bearer ", "");
+
+        console.log(token);
 
         // if token is missing
         if (!token) {
@@ -45,7 +48,8 @@ exports.isStudent = async (req, res, next) => {
         if (req.user.accountType !== "Student") {
             return res.status(401).json ({
                 success: false,
-                message: "This is protected route for student only!"
+                allowed: false,
+                message: "You can't do this action."
             })
         }
 
@@ -53,6 +57,7 @@ exports.isStudent = async (req, res, next) => {
     } catch (err) {
         return res.status(500).json({
             success: false,
+            allowed: true,
             message: "User role cannnot be verified, please try again later."
         })
     }
@@ -64,7 +69,8 @@ exports.isInstructor = async (req, res, next) => {
         if (req.user.accountType !== "Instructor") {
             return res.status(401).json ({
                 success: false,
-                message: "This is protected route for instructor only!"
+                allowed: false,
+                message: "You can't do this action."
             })
         }
 

@@ -9,7 +9,7 @@ const {
 export async function getCatalogPageData(categoryId) {
     let result = [];
     const toastId = toast.loading("Loading...");
-    console.log("Category ID: ",categoryId)
+    // console.log("Category ID: ",categoryId)
 
     try {
 

@@ -114,7 +114,7 @@ const Home = () => {
                             active: false,
                         }}
                         codeblocks={`<!DOCTYPE html>\n<html>\n<head>\n\t<title>Example</title>\n\t<link rel='stylesheet' href='styles.css' />\n<head>\n<body>\n\t<h1>\n\t\t<a href='/'>Header</a>\n\t</h1>\n</body>\n</html>`}
-                        codeColor={"text-yellow-200"}
+                        codeColor={"text-blue-200"}
                         backgroupGradient={`bg-custom-gradient-blue`}
                     />
                 </div>

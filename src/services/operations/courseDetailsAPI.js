@@ -7,13 +7,61 @@ const {
     EDIT_COURSE_API,
     GET_ALL_INSTRUCTOR_COURSES_API,
     GET_FULL_COURSE_DETAILS_AUTHENTICATED,
+    COURSE_DETAILS_API,
     CREATE_SECTION_API,
     UPDATE_SECTION_API,
     DELETE_SECTION_API,
     CREATE_SUBSECTION_API,
     UPDATE_SUBSECTION_API,
     DELETE_SUBSECTION_API,
+    LECTURE_COMPLETION_API,
+    CREATE_RATING_API
 } = courseEndpoints
+
+
+export async function createRating(data, token) {
+
+    const toastId = toast.loading("Loading...");
+
+    try {
+
+        const response = await apiConnector("POST", CREATE_RATING_API, data, {
+            Authorization: `Bearer ${token}`
+        })
+
+        if (!response.data.success) {
+            throw new Error(response.data.message);
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+    toast.dismiss(toastId);
+}
+
+export async function markLectureAsComplete(data, token) {
+    const toastId = toast.loading("Loading...");
+    try {
+        const response = await apiConnector("POST", LECTURE_COMPLETION_API, data, {
+            Authorization: `Bearer ${token}`
+        })
+
+        // console.log(response);
+
+        if (!response.data.success) {
+            throw new Error(response.data.message);
+        }
+
+        toast.success("Mark as Completed.")
+
+    } catch (error){
+        console.log(error);
+    }
+
+    toast.dismiss(toastId);
+
+    return "Success"
+}
 
 export async function fetchFullCourseDetails (data, token) {
     const toastId = toast.loading("Loading...");
@@ -40,6 +88,31 @@ export async function fetchFullCourseDetails (data, token) {
     return result;
 }
 
+export async function fetchCourseDetails(data) {
+    const toastId = toast.loading("Loading...");
+    let result = null;
+    console.log("COURSE_ID_DATA.....", data);
+
+    try {
+
+        const response = await apiConnector('POST', COURSE_DETAILS_API, data);
+
+        if (!response.data.success) {
+            throw new Error("Failed to fetch course details");
+        }
+
+        result = response?.data?.data;
+
+    } catch (error) {
+        console.log(error);
+        toast.error("Failed to fetch!");
+    }
+
+    toast.dismiss(toastId);
+    return result;
+
+}
+
 export async function fetchInstructorCourses(token) {
     let result = null;
     const toastId = toast.loading("Loading...");
@@ -56,7 +129,7 @@ export async function fetchInstructorCourses(token) {
 
         // console.log("RESPONSE_INSTRUCTOR_COURSES: ", response);
 
-        result = response?.data?.data;
+        result = response?.data;
 
     } catch (error) {
         console.log(error);

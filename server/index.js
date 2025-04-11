@@ -11,6 +11,8 @@ const userRoutes = require('./routes/User');
 const courseRoutes = require('./routes/Course');
 const paymentRoutes = require('./routes/Payments');
 const profileRoutes = require('./routes/Profile');
+const { auth } = require('./middleware/auth');
+const { saveContact } = require('./controllers/Contact');
 
 require('dotenv').config();
 const PORT = process.env.PORT || 5000;
@@ -41,14 +43,18 @@ app.use('/api/v1/profile', profileRoutes);
 app.use('/api/v1/course', courseRoutes);
 app.use('/api/v1/payment', paymentRoutes);
 
-
 // default route
-app.get('/', (req, res) => {
-    res.json({
+app.get('/', auth, (req, res) => {
+
+    console.log("You are a valid user.")
+
+    return res.status(200).json({
         success: true,
         message: 'Your server is up an running...'
     })
 })
+
+app.post('/reach/contact', saveContact)
 
 // activate the server
 app.listen(PORT, () => {

@@ -1,7 +1,7 @@
 const Contact = require('../models/ContactUs');
 const User = require('../models/User');
 const mailSender = require('../utils/mailSender');
-const StudyNotion = require('../../src/assets/Logo/Logo-Full-Light.png');
+// const StudyNotion = require('../../src/assets/Logo/Logo-Full-Light.png');
 
 // save contact us details
 exports.saveContact = async (req, res) => {

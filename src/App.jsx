@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {Routes, Route} from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -30,10 +30,28 @@ import {AddCourse} from './components/cores/Dashboard/AddCourses/index'
 import MyCourses from './components/cores/Dashboard/MyCourses'
 import EditCourse from './components/cores/Dashboard/AddCourses/EditCourse'
 import Catalog from './pages/Catalog'
+import CourseDetails from './pages/CourseDetails'
+// import { checkToken } from './services/operations/authAPI'
+import ViewCourse from './pages/ViewCourse'
+import VideoDetails from './components/cores/viewCourse/VideoDetails'
 
 const App = () => {
 
   const {user} = useSelector((state) => state.profile);
+  const {token} = useSelector((state) => state.auth);
+
+  // useEffect(() => {
+  //   async function checkuser() {
+  //     try {
+  //       await checkToken(token)
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+
+  //   checkuser();
+
+  // },[])
 
   return (
     <div className="relative w-screen min-h-screen bg-richblack-900 flex flex-col font-medium text-richblack-5">
@@ -41,6 +59,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/catalog/:catalogName" element={<Catalog />}></Route>
+        <Route path='/courses/:courseId' element={<CourseDetails />}></Route>
 
         <Route 
           path='/login' 
@@ -109,6 +128,23 @@ const App = () => {
 
           <Route path='/dashboard/*' element={<Error />} />
 
+
+         </Route>
+
+         <Route element= {
+          <PrivateRoute>
+            <ViewCourse />
+          </PrivateRoute>
+         }>
+
+          {
+            user?.accountType === ACCOUNT_TYPE.STUDENT && (
+              <>
+                <Route 
+                path='view-course/:courseId/section/:sectionId/sub-section/:subSectionId' element={<VideoDetails />} />
+              </>
+            )
+          }
 
          </Route>
 

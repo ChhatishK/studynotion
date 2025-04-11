@@ -75,6 +75,8 @@ const Navbar = () => {
                                                     </div>
 
                                                     <div className='flex flex-col'>
+
+                                                        {subLinks.length === 0 && <span>Loading...</span>}
                                                         {
                                                             subLinks.map((links, index) => (
                                                                 <Link key={index} to={`/catalog/${links.name.split(" ").join('-').toLowerCase()}`} className='p-2 hover:bg-richblack-25 rounded'>
@@ -104,7 +106,7 @@ const Navbar = () => {
 
             {/* Login/Signup/Dashboard */}
 
-            <div className='flex gap-4 items-center'>
+            <div className='flex gap-6 items-center'>
 
                 {
                     user && user?.accountType !== "Instructor" &&(
@@ -112,7 +114,7 @@ const Navbar = () => {
                             <MdOutlineShoppingCart size={25} />
                             {
                                 totalItems > 0 && (
-                                    <span>{totalItems}</span>
+                                    <span className='absolute top-[-12px] right-[-12px]  w-5 h-5 text-richblack-900 flex justify-center items-center bg-yellow-5 text-base rounded-full'>{totalItems}</span>
                                 )
                             }
                         </Link>

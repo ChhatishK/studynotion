@@ -1,8 +1,9 @@
 import React from 'react'
+import ReactStars from "react-stars"
 import { useDispatch, useSelector } from 'react-redux'
-import { GiNinjaStar } from "react-icons/gi";
-import ReactStars from 'react-rating-stars-component'
+import {FaStar} from 'react-icons/fa'
 import { RiDeleteBinLine } from "react-icons/ri";
+import { removeFromCart } from '../../../../slices/cartSlice';
 
 const RenderCartCourses = () => {
 
@@ -10,41 +11,41 @@ const RenderCartCourses = () => {
     const dispatch = useDispatch();
 
   return (
-    <div>
+    <div className='flex flex-col flex-1'>
         {
             cart.map((course, index) => (
-                <div>
+                <div key={index} className={`w-full flex flex-wrap items-start gap-6 justify-between ${index !== cart.length-1 && "border-b border-b-richblack-400 pb-6"} ${index !== 0 && "mt-6"}`}>
 
-                    <div>
-                        <img src={course?.thumnail} alt="" />
-                        <div>
-                            <p>{course?.courseName}</p>
-                            <p>{course?.category?.name}</p>
-                            <div>
-                                <span>4.8</span>
+                    <div className='flex flex-1 flex-col gap-4 xl:flex-row'>
+                        <img src={course?.thumbnail} alt="" className='w-[220px] h-[148px] rounded-lg object-cover border  border-richblack-700' />
+                        <div className='flex flex-col space-y-1'>
+                            <p className='text-lg font-medium text-richblack-5'>{course?.courseName}</p>
+                            <p className='text-sm text-richblack-300'>{course?.category?.name}</p>
+                            <div className='flex items-center gap-2'>
+                                <span>{course?.ratingAndReviews?.length}</span>
                                 <ReactStars
-                                count={5}
-                                size={20}
-                                edit={false}
-                                activeColor='#ffd700'
-                                emptyIcon={<GiNinjaStar />}
-                                fullIcon={<GiNinjaStar />}
+                                    count={5}
+                                    value={course?.ratingAndReviews?.length}
+                                    size={20}
+                                    edit={false}
+                                    color2={'#ffd700'}
                                 />
 
-                                <span>{course?.ratingAndReviews?.length} Ratings</span>
+                                <span className='text-richblack-400'>{course?.ratingAndReviews?.length} Ratings</span>
                             </div>
                         </div>
                     </div>
 
-                    <div>
+                    <div className='flex flex-col items-end space-y-2'>
                         <button
-                        onClick={() => dispatch(removeFromCart(course._id))}
+                        onClick={() => dispatch(removeFromCart(course))}
+                        className='flex items-center text-pink-200 gap-x-1 py-3 px-[12px] bg-richblack-700 border border-richblack-600 rounded-md hover:scale-95 transition-all duration-200'
                         >
                             <RiDeleteBinLine />
                             <span>Remove</span>
                         </button>
 
-                        <p>{course?.price}</p>
+                        <p className='mb-6 text-3xl font-medium text-yellow-100'>₹ {course?.price}</p>
                     </div>
 
                 </div>

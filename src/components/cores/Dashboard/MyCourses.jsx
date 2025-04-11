@@ -16,9 +16,10 @@ const MyCourses = () => {
     const instructorCourses = async () => {
         setLoading(true)
         const result = await fetchInstructorCourses(token);
+        console.log(result)
 
         if (result) {
-            setCourses(result);
+            setCourses(result.data);
         }
 
         setLoading(false)

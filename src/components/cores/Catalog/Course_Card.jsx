@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { GetAvgRating } from '../../../utils/avgRating';
 import { Link } from 'react-router-dom';
 import RatingStars from '../../common/RatingStars';
-const CourseCard = ({course, Height}) => {
+const Course_Card = ({course, Height}) => {
 
     const [avgReviewCount, setAvgReviewCount] = useState(0);
 
@@ -11,25 +11,29 @@ const CourseCard = ({course, Height}) => {
         setAvgReviewCount(count);
     }, [course])
 
+    console.log("AVERAGE RATING: ", avgReviewCount)
+
   return (
     <div>
         <Link to={`/courses/${course._id}`}>
-            <div>
-                <div className='w-[400px]'>
+            <div className='border rounded-xl border-richblack-700 hover:scale-105 transition-all duration-200'>
+                <div className='min-w-fit lg:min-w-[400px]'>
                     <img src={course?.thumbnail} alt="Course Thumbnail"
                     className={`${Height} w-full rounded-xl object-cover`} 
                     />
 
-                    <div>
-                        <p>{course?.courseName}</p>
-                        <p>{course?.instructor?.firstName} {course?.instructor?.lastName}</p>
+                    <div className='flex flex-col gap-2 p-3'>
+                        <div className='flex justify-between items-center'>
+                            <p className='text-xl'>{course?.courseName}</p>
+                            <p className='text-xs text-richblack-300'>{course?.instructor?.firstName} {course?.instructor?.lastName}</p>
+                        </div>
 
-                        <div>
-                            <span></span>
+                        <div className='flex gap-2'>
+                            <span>{avgReviewCount}</span>
                             <RatingStars Review_count = {avgReviewCount} />
                             <span>{course?.ratingAndReviews?.length} Ratings</span>
                         </div>
-                        <p>{course?.price}</p>
+                        <p>RS. {course?.price}</p>
                     </div>
                 </div>
             </div>
@@ -38,4 +42,4 @@ const CourseCard = ({course, Height}) => {
   )
 }
 
-export default CourseCard
+export default Course_Card

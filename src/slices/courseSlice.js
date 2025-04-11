@@ -25,7 +25,6 @@ const courseSlice = createSlice({
             state.step = 1,
             state.course = null,
             state.editCourse = false
-
         }
 
     }
