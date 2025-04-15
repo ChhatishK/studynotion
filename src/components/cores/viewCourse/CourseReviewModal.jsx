@@ -55,7 +55,7 @@ const CourseReviewModal = ({setReviewModal}) => {
 
           <div className='p-6'>
             <div className='flex items-center justify-center gap-x-4'>
-              <img src={user?.image} alt={`Profile-${user.firstName}`} className='w-[50px] aspect-square rounded-full' />
+              <img src={user?.image} alt={`Profile-${user.firstName}`} className='w-[50px] aspect-square object-cover rounded-full' />
               <div className='flex flex-col'>
                 <span>{user?.firstName} {user?.lastName}</span>
                 <span className='text-richblack-100 text-sm'>Posting Publicly</span>

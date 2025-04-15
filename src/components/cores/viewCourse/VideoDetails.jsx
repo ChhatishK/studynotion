@@ -129,7 +129,7 @@ const VideoDetails = () => {
   }
 
   return (
-    <div>
+    <div className='flex flex-col text-white'>
 
       <div className='flex justify-between mt-5 mb-4 gap-3'>
         <button onClick={() => navigate('/dashboard/enrolled-courses')}
@@ -164,7 +164,11 @@ const VideoDetails = () => {
       </div>
       
       {!videoData ? (
-        <img src={previewSource} alt='Preview' />
+        <img 
+          src={previewSource} 
+          alt='Preview' 
+          className='h-full w-full rounded-md object-cover'
+        />
 
       ): (
         <Player 
@@ -227,8 +231,8 @@ const VideoDetails = () => {
          </Player>
       )}
 
-      <h1>{videoData?.title}</h1>
-      <span>{videoData?.description}</span>
+      <h1 className='text-3xl mt-4 font-semibold'>{videoData?.title}</h1>
+      <span className='text-sm text-richblack-300 pb-6 pt-2'>{videoData?.description}</span>
       
     </div>
   )
