@@ -18,7 +18,7 @@ const ReviewSlider = () => {
             const response = await apiConnector("GET", ratingsEndpoints.REVIEWS_DETAILS_API);
 
             const {data} = response;
-            console.log(data);
+            // console.log(data);
 
             if (data?.success) {
                 setReviews(data?.data)
@@ -29,14 +29,14 @@ const ReviewSlider = () => {
         fetchAllReviews();
     }, [])
 
-    console.log(reviews)
+    // console.log(reviews)
 
     return (
         <div className='w-full mb-24'>
             
             <div className='w-full'>
                 <Swiper
-                    slidesPerView={4}
+                    slidesPerView={1}
                     spaceBetween={24}
                     loop={enableLoop}
                     autoplay={{
@@ -45,12 +45,14 @@ const ReviewSlider = () => {
                     freeMode={true}
                     modules={[FreeMode, Autoplay, Pagination]}
                     breakpoints={{
-                        724: {
-                            direction: 'vertical'
-                        },
                         1024: {
-                            direction: 'horizontal'
-                        }
+                            slidesPerView: 3,
+                            spaceBetween: 25
+                        },
+                        768: {
+                            slidesPerView: 2,
+                            spaceBetween: 10,
+                        },
                     }}
                 >
                     {
