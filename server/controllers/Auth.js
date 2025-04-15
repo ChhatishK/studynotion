@@ -21,9 +21,9 @@ exports.sendOTP = async (req, res) => {
         const {email} = req.body;
 
         if (!validateEmail(email)) {
-            return res.status(401).json({
+            return res.json({
                 success: false,
-                message: "Email is Invalid!"
+                message: "Invalid emailid."
             });
         }
 
@@ -32,7 +32,7 @@ exports.sendOTP = async (req, res) => {
 
         // if user already exists
         if (existingUser) {
-            return res.status(401).json({
+            return res.json({
                 success: false,
                 message: "User already registered!"
             });
@@ -75,7 +75,7 @@ exports.sendOTP = async (req, res) => {
     } catch (err) {
         res.status(500).json({
             success: false,
-            message: err.message
+            message: "Failed to send OTP. Try Again"
         })
     }
 }
@@ -100,15 +100,15 @@ exports.signup = async (req, res) => {
             });
         }
 
-        console.log('data fetched!')
+        // console.log('data fetched!')
 
-        // confirm password validation
-        if (password !== confirmPassword) {
-            return res.status(401).json({
-                success: false,
-                message: "Password and confirm password does not match!, Please try again.."
-            })
-        }
+        // // confirm password validation
+        // if (password !== confirmPassword) {
+        //     return res.status(401).json({
+        //         success: false,
+        //         message: "Password and confirm password does not match!, Please try again.."
+        //     })
+        // }
 
         // console.log('password matched!')
 
@@ -128,13 +128,13 @@ exports.signup = async (req, res) => {
         // validate OTP
         if (recentOTP.length === 0) {
             // OTP not found!
-            return res.status(400).json({
+            return res.json({
                 success: false,
                 message: "OTP Not Found!"
             });
         } else if (Number(otp) !== recentOTP[0].otp) {
             // Invalid OTP
-            return res.status(400).json({
+            return res.json({
                 success: false,
                 message: "Invalid OTP"
             })

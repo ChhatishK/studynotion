@@ -1,5 +1,6 @@
 const Profile = require('../models/Profile');
 const User = require('../models/User');
+const Course = require('../models/Course')
 const CourseProgress = require('../models/CourseProgress')
 const cron = require('node-cron');
 const {uploadFileToCloudinary} = require('../utils/uploadImageToCloudinary');
@@ -306,6 +307,46 @@ exports.getEnrolledCourses = async (req, res) => {
             success: false,
             error: error.message,
             message: 'Enrolled courses cannot be fetched.'
+        })
+    }
+}
+
+
+// get stats and course details
+exports.instructorDashboard = async (req, res) => {
+    try {
+
+        const userId = req.user.id;
+
+        const courseDetails = await Course.find({instructor: userId});
+
+        // console.log(courseDetails);
+        
+        const courseData = courseDetails.map((course) => {
+            const totalStudentsEnrolled = course.studentsEnrolled.length;
+            const totalAmountEarned = totalStudentsEnrolled * course.price;
+
+            // create new object with the additional fields;
+            const courseDataWithStats = {
+                _id: course._id,
+                courseName: course.courseName,
+                courseDescription: course.courseDescription,
+                totalStudentsEnrolled,
+                totalAmountEarned
+            }
+            return courseDataWithStats;
+        })
+
+        return res.status(200).json({
+            success: true,
+            courses: courseData
+        })
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server error"
         })
     }
 }
