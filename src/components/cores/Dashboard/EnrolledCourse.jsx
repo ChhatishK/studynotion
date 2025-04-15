@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import ProgressBar from '@ramonak/react-progress-bar'
 import { getEnrolledCourses } from '../../../services/operations/profileAPI';
 import Recommendation from '../../common/Recommendation';
 import { useNavigate } from 'react-router-dom';
@@ -84,12 +83,19 @@ const EnrolledCourse = () => {
                                     <div className='flex flex-col gap-2 px-2 py-3'>
                                         <p>Progress: {course.progressPercentage || 0}%</p>
 
-                                        <ProgressBar
+                                        {/* <ProgressBar
                                             completed={course.progressPercentage || 0}
                                             height='8px'
                                             width='170px'
                                             isLabelVisible={false}
-                                        />
+                                        /> */}
+                                        <progress 
+                                            value={course.progressPercentage || 0}
+                                            max={100}
+                                            className='appearance-none'
+                                        >
+
+                                        </progress>
                                         
                                     </div>
                             </div>
