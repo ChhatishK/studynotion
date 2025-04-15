@@ -44,7 +44,14 @@ const ReviewSlider = () => {
                     }}
                     freeMode={true}
                     modules={[FreeMode, Autoplay, Pagination]}
-                    className=''
+                    breakpoints={{
+                        724: {
+                            direction: 'vertical'
+                        },
+                        1024: {
+                            direction: 'horizontal'
+                        }
+                    }}
                 >
                     {
                         reviews.map((review, index) => (
