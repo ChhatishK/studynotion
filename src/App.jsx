@@ -129,8 +129,7 @@ const App = () => {
           }
 
           <Route path='/dashboard/*' element={<Error />} />
-
-
+          
          </Route>
 
          <Route element= {

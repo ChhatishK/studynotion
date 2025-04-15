@@ -52,7 +52,7 @@ const ReviewSlider = () => {
                             className='w-[400px] bg-richblack-800 p-4 flex flex-col'
                             >
                                 <div className='flex gap-2 items-center mb-3'>
-                                    <img src={review?.user?.image? review?.user?.image: `https:api.dicebear.com/5.x/initials/svg?seed=${review?.user?.firstName} ${review?.user?.lastName}`} alt={`Profile-${review?.user?.firstName}`}
+                                    <img src={review?.user?.image? review?.user?.image: `https://api.dicebear.com/5.x/initials/svg?seed=${review?.user.firstName} ${review?.user.lastName}`} alt={`Profile-${review?.user?.firstName}`}
                                     className='h-12 w-12 object-cover rounded-full'
                                     />
 
