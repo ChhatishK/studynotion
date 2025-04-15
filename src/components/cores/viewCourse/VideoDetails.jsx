@@ -5,6 +5,7 @@ import { BigPlayButton, Player } from 'video-react';
 import IconBtn from '../../common/IconBtn';
 import { updateCompletedLectures } from '../../../slices/viewCourseSlice';
 import { markLectureAsComplete } from '../../../services/operations/courseDetailsAPI';
+import toast from 'react-hot-toast';
 
 const VideoDetails = () => {
 
@@ -129,6 +130,38 @@ const VideoDetails = () => {
 
   return (
     <div>
+
+      <div className='flex justify-between mt-5 mb-4 gap-3'>
+        <button onClick={() => navigate('/dashboard/enrolled-courses')}
+          className='blackButton'
+          >
+          Back
+        </button>
+        <div className='flex gap-4'>
+          <button
+          className={`blackButton`}
+          onClick={() => {
+            !isFirstVideo && previousVideo
+            toast.error("You are on first Lecture.")
+          }}
+          disabled={loading}
+          >
+            Prev
+          </button>
+
+          <button
+            className={`yellowButton ${isLastVideo ? "cursor-not-allowed" : "cursor-pointer"}`}
+            disabled={loading}
+            onClick={() => {
+              !isLastVideo && nextVideo
+              toast.error("You are on last video.")
+            }}
+          >
+            Next
+          </button>
+        </div>
+          
+      </div>
       
       {!videoData ? (
         <img src={previewSource} alt='Preview' />

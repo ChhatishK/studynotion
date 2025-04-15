@@ -29,9 +29,9 @@ const RenderSteps = () => {
   return (
     <>
       <div className='flex w-full mb-2 justify-center'>
-        {steps.map((item) => (
-          <>
-              <div key={item.id} className='flex flex-col items-center'>
+        {steps.map((item, index) => (
+          <div key={index}>
+              <div className='flex flex-col items-center'>
                 <div className={`cursor-default aspect-square w-[34px] rounded-full grid place-items-center border-[1px] ${step > item.id ? "bg-yellow-50 border-yellow-50 text-yellow-50" : step === item.id ? "border-yellow-50 bg-yellow-900 text-yellow-50" : "border-richblack-700 bg-richblack-800 text-richblack-300"}`}>
                   {
                     step > item.id ? (<FaCheck className='font-bold text-richblack-900' />) : (item.id)
@@ -47,7 +47,7 @@ const RenderSteps = () => {
                   </>
                 )
               }
-          </>
+          </div>
         ))}
       </div>
 

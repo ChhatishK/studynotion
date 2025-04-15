@@ -157,7 +157,7 @@ const ContactUsForm = () => {
                 </div>
 
                 <button type="submit"
-                className="rounded-md bg-yellow-50 text-center px-6  py-2 text-richblack-800 transition-all duration-200 hover:scale-95"
+                className="rounded-md bg-yellow-50 text-center px-6  py-2 text-richblack-800 transition-all duration-200 hover:scale-95 select-none"
                 >Send Message</button>
             </div>
         </form>

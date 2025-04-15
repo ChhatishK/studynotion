@@ -54,9 +54,9 @@ const EnrolledCourse = () => {
             !enrolledCourses.length? (<p className='text-center text-richblack-100'>You have not enrolled in any courses yet!</p>)
             : (
                 <div className='my-8'>
-                    <div className='grid grid-cols-3 bg-richblack-500 rounded-t-lg p-3 text-richblack-25'>
+                    <div className='grid lg:grid-cols-3 grid-cols-2 bg-richblack-500 rounded-t-lg lg:p-3 pl-7 p-2 text-richblack-25'>
                         <p>Course Name</p>
-                        <p>Durations</p>
+                        <p className='hidden lg:flex'>Durations</p>
                         <p>Progress</p>
                     </div>
 
@@ -64,7 +64,7 @@ const EnrolledCourse = () => {
 
                     {
                         enrolledCourses.map((course, index, arr) => (
-                            <div key={index} className={`flex items-center border border-richblack-800 ${index === arr.length?  "border-b-lg": "rounded-none"}`}>
+                            <div key={index} className={`grid lg:grid-cols-3 grid-cols-2 border border-richblack-800 ${index === arr.length?  "border-b-lg": "rounded-none"}`}>
                                 <div 
                                 onClick={() => navigate(`/view-course/${course._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSection?.[0]?._id}`)}
                                 className='flex w-[45%] cursor-pointer items-center gap-4 px-5 py-3'>
@@ -72,12 +72,12 @@ const EnrolledCourse = () => {
                                         <img src={course.thumbnail} alt="Thumnail" className='w-14 h-14 rounded-lg object-cover' />
                                         <div className='flex max-w-xs flex-col gap-2'>
                                             <p className='font-semibold'>{course.courseName}</p>
-                                            <p className='text-xs text-richblack-300'>{course.courseDescription.length > 50 ? `${course.courseDescription.slice(0, 50)}...` : course.courseDescription}</p>
+                                            <p className='hidden lg:flex text-xs text-richblack-300'>{course.courseDescription.length > 50 ? `${course.courseDescription.slice(0, 50)}...` : course.courseDescription}</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                    <div className='w-1/4 px-2 py-3'>
+                                    <div className='hidden lg:flex w-1/4 px-2 py-3'>
                                         {course?.totalDuration}
                                     </div>
 

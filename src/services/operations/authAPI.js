@@ -14,10 +14,9 @@ const {
 } = endpoints;
 
 
-export const sendOtp = (email, navigate) => {
-    return async (dispatch) => {
-        const toastId = toast.loading("Loading...");
-        dispatch(setLoading(true));
+export const sendOtp = async (email, navigate, dispatch) => {
+        // const toastId = toast.loading("Loading...");
+        // dispatch(setLoading(true));
 
         try {
             const response = await apiConnector("POST", SENDOTP_API, {
@@ -27,23 +26,28 @@ export const sendOtp = (email, navigate) => {
             
             console.log("OTP send response : ", response);
 
-            console.log(response.data.message);
+            // console.log(response.data.message);
 
             if (!response.data.success) {
-                throw new Error (response.data.message)
+                toast.error(response.data.message);
+                return false;
+                // throw new Error (response.data.message)
             }
+            const toastId = toast.loading("Loading...")
 
             toast.success("OTP sent to your email");
             navigate('/verify');
+
+            toast.dismiss(toastId);
 
         } catch (error) {
             console.log("Error to send otp : ", error);
             toast.error('OTP could not sent');
         }
 
-        toast.dismiss(toastId);
-        dispatch(setLoading(false));
-    }
+        // toast.dismiss(toastId);
+        // dispatch(setLoading(false));
+        return true;
 }
 
 // signup handler
@@ -90,10 +94,8 @@ export const signup = (
 
 }
 
-export const login = (email, password, navigate) => {
-    return async (dispatch) => {
-        const toastId = toast.loading("Loading...");
-        dispatch(setLoading(true));
+export const login = async (email, password, navigate, dispatch) => {
+        // dispatch(setLoading(true));
 
         try {
             const response = await apiConnector("POST", LOGIN_API, {
@@ -103,7 +105,8 @@ export const login = (email, password, navigate) => {
             console.log("Login Response.....: ", response);
 
             if (!response.data.success) {
-                throw new Error(response.data.message)
+                toast.error(response.data.message);
+                return;
             }
 
             toast.success("Login Successfully!");;
@@ -125,9 +128,7 @@ export const login = (email, password, navigate) => {
             toast.error(error.response.data.message);
         }
 
-        dispatch(setLoading(false));
-        toast.dismiss(toastId);
-    }
+        // dispatch(setLoading(false));
 }
 
 export const logout = (navigate) => {
@@ -180,7 +181,6 @@ export const sendresetlink = (email, navigate) => {
         toast.dismiss(toastId);
     }
 }
-
 
 export const resetPassword = (password, confirmPassword, token, navigate) => {
     return async (dispatch) => {

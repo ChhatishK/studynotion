@@ -30,7 +30,7 @@ const Sidebar = () => {
   
   return (
     <div>
-        <div className='relative flex flex-col min-w-[222px] h-[calc(100vh-3.5rem)] pt-10 border-r border-richblack-700 text-richblack-300  bg-richblack-800'>
+        <div className='relative lg:flex hidden flex-col min-w-[222px] h-[calc(100vh-3.5rem)] pt-10 border-r border-richblack-700 text-richblack-300  bg-richblack-800'>
             {/* Sidebar */}
 
             <div className='flex flex-col'>
@@ -61,7 +61,7 @@ const Sidebar = () => {
                   })}
 
                 >
-
+                  
                   <div className='absolute left-0 right-0 flex items-center gap-x-2 pl-8 py-2 hover:bg-richblack-700'>
                     <VscSignOut className='text-lg' />
                     <span>Logout</span>

@@ -1,9 +1,10 @@
 import toast from "react-hot-toast"
 import { apiConnector } from "../apiconnector";
-import { courseEndpoints, profileEndpoints } from "../api";
+import { profileEndpoints } from "../api";
 
 const {
-    GET_USER_ENROLLED_COURSES_API
+    GET_USER_ENROLLED_COURSES_API,
+    GET_INSTRUCTOR_DATA_API
 } = profileEndpoints
 
 export const getEnrolledCourses = async (token) => {
@@ -42,4 +43,26 @@ export const getEnrolledCourses = async (token) => {
         toast.dismiss(toastId);
 
         return result;
+}
+
+export async function getInstructorData(token) {
+    const toastId = toast.loading("Loading...");
+    let result = [];
+
+    try {
+
+        const response = await apiConnector("GET", GET_INSTRUCTOR_DATA_API, null, {
+            Authorization: `Bearer ${token}`
+        })
+
+        // console.log("GET_INSTRUCTOR_DATA_API_RESPONSE: ,", response);
+
+        result = response?.data?.courses
+
+    } catch (error) {
+        console.log("GET_INSTRUCTOR_API_ERROR, ", error)
+    }
+
+    toast.dismiss(toastId);
+    return result;
 }

@@ -4,7 +4,7 @@ import { HiOutlineGlobeAlt } from "react-icons/hi"
 import ReactMarkdown from 'react-markdown'
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-
+import ReactStars from 'react-rating-stars-component'
 import ConfirmModal from '../components/common/ConfirmModal'
 import Footer from "../components/cores/Footer/Footer"
 import RatingStars from "../components/common/RatingStars"
@@ -15,6 +15,7 @@ import { fetchCourseDetails } from "../services/operations/courseDetailsAPI"
 import { buyCourse } from "../services/operations/studentFeaturesAPI"
 import { GetAvgRating } from "../utils/avgRating"
 import Error from './Error'
+import { addToCart } from "../slices/cartSlice"
 
 function CourseDetails() {
   const { user } = useSelector((state) => state.profile)
@@ -45,7 +46,7 @@ function CourseDetails() {
 
   const [avgReviewCount, setAvgReviewCount] = useState(0)
   useEffect(() => {
-    const count = GetAvgRating(response?.courseDetails.ratingAndReviews)
+    const count = GetAvgRating(response?.courseDetails?.ratingAndReviews)
     setAvgReviewCount(count)
   }, [response])
 
@@ -145,6 +146,7 @@ function CourseDetails() {
               <div className="text-md flex flex-wrap items-center gap-2 text-richblack-200">
                 <span className="text-yellow-25">{avgReviewCount}</span>
                 <RatingStars Review_Count={avgReviewCount} Star_Size={24} />
+                {/* <ReactStars count={avgReviewCount} edit={flase} /> */}
                 <span>{`(${ratingAndReviews.length} reviews)`}</span>
                 <span>{`${studentsEnrolled.length} students enrolled`}</span>
               </div>
@@ -171,7 +173,7 @@ function CourseDetails() {
               <button className="yellowButton" onClick={handleBuyCourse}>
                 Buy Now
               </button>
-              <button className="blackButton">Add to Cart</button>
+              <button className="blackButton" onClick={() => dispatch(addToCart(response?.courseDetails?._id))}>Add to Cart</button>
             </div>
           </div>
           {/* Courses Card */}

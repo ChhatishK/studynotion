@@ -11,13 +11,13 @@ const Course_Card = ({course, Height}) => {
         setAvgReviewCount(count);
     }, [course])
 
-    console.log("AVERAGE RATING: ", avgReviewCount)
+    // console.log("AVERAGE RATING: ", avgReviewCount)
 
   return (
     <div>
         <Link to={`/courses/${course._id}`}>
-            <div className='border rounded-xl border-richblack-700 hover:scale-105 transition-all duration-200'>
-                <div className='min-w-fit lg:min-w-[400px]'>
+            <div className='w-[400px] border rounded-xl border-richblack-700 hover:scale-105 transition-all duration-200'>
+                <div className='w-[400px]'>
                     <img src={course?.thumbnail} alt="Course Thumbnail"
                     className={`${Height} w-full rounded-xl object-cover`} 
                     />

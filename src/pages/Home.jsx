@@ -16,6 +16,8 @@ import InstructorSection from "../components/cores/HomePage/InstructorSection";
 
 import ExploreMore from "../components/cores/HomePage/ExploreMore";
 
+import ReviewSlider from "../components/cores/HomePage/ReviewSlider";
+
 const Home = () => {
     return (
         <div className="w-full">
@@ -173,12 +175,15 @@ const Home = () => {
 
             {/*Section 3  */}
 
-            <div className="w-11/12 mx-auto max-w-maxContent flex items flex-col justify-between bg-richblack-900">
+            <div className="w-11/12 mx-auto max-w-maxContent flex items flex-col justify-between items-center bg-richblack-900">
                 <InstructorSection />
 
-                <h2 className="text-center text-4xl font-semibold mt-24">Review form Other Learners</h2>
+                <h2 className="text-center text-4xl font-semibold mt-24 mb-24">Review form Other Learners</h2>
 
                 {/* Review Slider */}
+                <div className="w-full flex justify-center">
+                    <ReviewSlider />
+                </div>
                 
             </div>
 

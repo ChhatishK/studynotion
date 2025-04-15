@@ -12,15 +12,15 @@ const Verify = () => {
     const navigate = useNavigate()
 
     const {signupData} = useSelector((state) => state.auth);
-    const {firstName, lastName, email, password, confirmPassword, accountType} = signupData;
+    // const {firstName, lastName, email, password, confirmPassword, accountType} = signupData;
 
     const [otp, setOtp] = useState("");
 
-    useEffect(() => {
-        if (!signupData) {
-            navigate('/signup');
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (!signupData) {
+    //         navigate('/signup');
+    //     }
+    // }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -28,10 +28,10 @@ const Verify = () => {
     }
 
   return (
-    <div className='w-11/12 mt-36 flex justify-center items-center '>
+    <div className='lg:w-11/12 w-screen mt-36 flex justify-center items-center'>
         <div className='flex flex-col justify-start w-[30%] gap-5'>
             <h2 className='text-3xl font-medium'>Verify Email</h2>
-            <p className='text-base text-richblack-300'>A Verification code has been set to your email. Enter the code below.</p>
+            <p className='text-base text-richblack-300'>A Verification code has been sent to your email. Enter the code below.</p>
 
             <form
              onSubmit={handleSubmit}
@@ -49,7 +49,7 @@ const Verify = () => {
                         style={{
                             boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
                         }}
-                        className="w-[48px] lg:w-[60px] border-0 bg-richblack-800 rounded-[0.5rem] text-richblack-5 aspect-square text-center focus:border-0 focus:outline-2 focus:outline-yellow-50"
+                        className="w-[40px] lg:w-[60px] border-0 bg-richblack-800 rounded-[0.5rem] text-richblack-5 aspect-square text-center focus:border-0 focus:outline-2 focus:outline-yellow-50"
                         />
                     )}
                     containerStyle={{

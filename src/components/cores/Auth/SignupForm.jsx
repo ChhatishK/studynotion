@@ -37,14 +37,25 @@ function SignupForm() {
     }))
   }
 
+  function validateEmail(email) {
+    const regex = /^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]{2,}$/;
+    return regex.test(email);
+  }
+
   // Handle Form Submission
-  const handleOnSubmit = (e) => {
-    e.preventDefault()
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validateEmail(email)) {
+      toast.error("Invalid Email.");
+      return;
+    }
 
     if (password !== confirmPassword) {
       toast.error("Passwords Do Not Match")
       return
     }
+
     const signupData = {
       ...formData,
       accountType,
@@ -54,16 +65,20 @@ function SignupForm() {
     // To be used after otp verification
     dispatch(setSignupData(signupData))
     // Send OTP to user for verification
-    dispatch(sendOtp(formData.email, navigate))
+    const res = await sendOtp(formData.email, navigate, dispatch);
+
+    console.log(res);
 
     // Reset
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    })
+    if (res) {
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      })
+    } else return;
     setAccountType(ACCOUNT_TYPE.STUDENT)
   }
 

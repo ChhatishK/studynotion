@@ -34,6 +34,7 @@ import CourseDetails from './pages/CourseDetails'
 // import { checkToken } from './services/operations/authAPI'
 import ViewCourse from './pages/ViewCourse'
 import VideoDetails from './components/cores/viewCourse/VideoDetails'
+import Instructor from './components/cores/Dashboard/instructorDashboard/Instructor'
 
 const App = () => {
 
@@ -122,6 +123,7 @@ const App = () => {
             <>
               <Route path='/dashboard/add-course' element={<AddCourse />} />
               <Route path='/dashboard/my-courses' element={<MyCourses /> } />
+               <Route path='/dashboard/instructor' element={<Instructor />} />
               <Route path='/dashboard/edit-course/:courseId' element={<EditCourse />} />
             </>
           }

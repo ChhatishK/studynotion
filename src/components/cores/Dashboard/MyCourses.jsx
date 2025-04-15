@@ -40,7 +40,7 @@ const MyCourses = () => {
             
             <div className='flex justify-between px-6 py-2 text-sm text-richblack-200'>
                 <p>COURSES</p>
-                <div className='flex gap-x-12'>
+                <div className='hidden lg:flex gap-x-12'>
                     <p>DURATION</p>
                     <p>PRICE</p>
                     <p>ACTIONS</p>

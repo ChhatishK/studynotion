@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactStars from "react-stars"
+import ReactStars from "react-rating-stars-component"
 import { useDispatch, useSelector } from 'react-redux'
 import {FaStar} from 'react-icons/fa'
 import { RiDeleteBinLine } from "react-icons/ri";

@@ -4,11 +4,13 @@ import { Link, matchPath } from 'react-router-dom';
 import Logo from '../../assets/Logo/Logo-Full-Light.png'
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { MdOutlineShoppingCart } from "react-icons/md";
+import { MdMenu, MdOutlineShoppingCart } from "react-icons/md";
 import ProfileDropDown from '../cores/Auth/ProfileDropDown';
 import { apiConnector } from '../../services/apiconnector';
 import { courseEndpoints } from '../../services/api';
 import { IoIosArrowDown } from "react-icons/io";
+import { IoMdMenu } from "react-icons/io";
+import MenuDropDown from './MenuDropDown';
 
 const Navbar = () => {
 
@@ -18,6 +20,7 @@ const Navbar = () => {
 
     // api call for categories
     const [subLinks, setSubLinks] = useState([]);
+    const [menuVisibility, setMenuVisibility] = useState(false);
 
     const fetchSubLinks = async() => {
         try {
@@ -31,6 +34,10 @@ const Navbar = () => {
     useEffect(() => {
         fetchSubLinks();
     }, [])
+
+    document.body.addEventListener('click', () => {
+        setMenuVisibility((prev) => !prev)
+    })
 
     const location = useLocation();
     const matchRoute = (route) => {
@@ -50,7 +57,7 @@ const Navbar = () => {
             {/* Nav Links */}
 
             <nav>
-                <ul className='flex gap-x-6 text-richblack-25'>
+                <ul className='lg:flex hidden gap-x-6 text-richblack-25'>
                     {
                         NavbarLinks.map((navlink, index) => {
                             return (
@@ -104,6 +111,17 @@ const Navbar = () => {
                 </ul>
             </nav>
 
+            {token === null && (
+                <div className='w-full flex justify-end md:hidden'>
+                    <MdMenu size={25} onClick={(e) => {
+                            e.stopPropagation()
+                            setMenuVisibility((prev) => !prev)
+
+                        }} />
+                    {menuVisibility && <MenuDropDown setMenuVisibility={setMenuVisibility} />}
+                </div>
+            )}
+
             {/* Login/Signup/Dashboard */}
 
             <div className='flex gap-6 items-center'>
@@ -123,14 +141,14 @@ const Navbar = () => {
 
                 {
                     token === null && (
-                        <Link to='/login' className='border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100 rounded-md'>
+                        <Link to='/login' className='lg:flex hidden border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100 rounded-md'>
                             <button>Log in</button>
                         </Link>
                     )
                 }
                 {
                     token === null && (
-                        <Link to='/signup' className='border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100 rounded-md'>
+                        <Link to='/signup' className='hidden lg:flex border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100 rounded-md'>
                             <button>Sign Up</button>
                         </Link>
                     )

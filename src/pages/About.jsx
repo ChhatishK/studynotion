@@ -13,6 +13,7 @@ import LearningGrid from '../components/cores/AboutPage/LearningGrid';
 import ContactFormSection from '../components/cores/AboutPage/ContactFormSection';
 
 import Footer from '../components/cores/Footer/Footer'
+import ReviewSlider from '../components/cores/HomePage/ReviewSlider';
 
 const About = () => {
   return (
@@ -91,9 +92,9 @@ const About = () => {
         </section>
 
         <section>
-          <div className='flex justify-center'>
-            <h2 className='text-4xl font-bold mb-32'>Review from other learners</h2>
-            {/* <ReviewSlider /> */}
+          <div className='w-11/12 mx-auto max-w-maxContent flex flex-col items-center'>
+            <h2 className='text-4xl font-bold mb-16'>Review from other learners</h2>
+            <ReviewSlider />
           </div>
         </section>
 
