@@ -44,9 +44,9 @@ app.use('/api/v1/course', courseRoutes);
 app.use('/api/v1/payment', paymentRoutes);
 
 // default route
-app.get('/', auth, (req, res) => {
+app.get('/', (req, res) => {
 
-    console.log("You are a valid user.")
+    // console.log("You are a valid user.")
 
     return res.status(200).json({
         success: true,
