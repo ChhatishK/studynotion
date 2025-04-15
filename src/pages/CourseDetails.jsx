@@ -12,7 +12,7 @@ import CourseAccordionBar from "../components/cores/Course/CourseAccordionBar"
 import CourseDetailsCard from "../components/cores/Course/CourseDetailsCard"
 import { formateDate } from "../services/formateDate"
 import { fetchCourseDetails } from "../services/operations/courseDetailsAPI"
-import { buyCourse } from "../services/operations/studentFeaturesAPI"
+import { buyCourse } from '../services/operations/StudentFeaturesAPI'
 import { GetAvgRating } from "../utils/avgRating"
 import Error from './Error'
 import { addToCart } from "../slices/cartSlice"

@@ -9,7 +9,7 @@ import Banner from "../assets/Images/banner.mp4";
 import CodeBlocks from "../components/cores/HomePage/CodeBlocks";
 
 import Footer from "../components/cores/Footer/Footer";
-import TimelineSection from "../components/cores/HomePage/TimelineSection";
+import TimelineSection from '../components/cores/HomePage/TimelineSection'
 import LearningLanguageSection from "../components/cores/HomePage/LearningLanguageSection";
 
 import InstructorSection from "../components/cores/HomePage/InstructorSection";
