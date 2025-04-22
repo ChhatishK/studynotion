@@ -29,7 +29,7 @@ const ReviewSlider = () => {
         fetchAllReviews();
     }, [])
 
-    // console.log(reviews)
+    if (!reviews) return;
 
     return (
         <div className='w-full mb-24'>
@@ -54,6 +54,7 @@ const ReviewSlider = () => {
                             spaceBetween: 10,
                         },
                     }}
+                    
                 >
                     {
                         reviews.map((review, index) => (
@@ -77,6 +78,7 @@ const ReviewSlider = () => {
                                     <p>{review?.rating}</p>
                                     <ReactStars
                                         count={5}
+                                        half={true}
                                         value={review.rating}
                                         size={20}
                                         edit={false}

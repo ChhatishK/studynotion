@@ -13,10 +13,9 @@ const {
     RESETPASSWORD_API
 } = endpoints;
 
-
 export const sendOtp = async (email, navigate, dispatch) => {
-        // const toastId = toast.loading("Loading...");
-        // dispatch(setLoading(true));
+        const toastId = toast.loading("Loading...");
+        dispatch(setLoading(true));
 
         try {
             const response = await apiConnector("POST", SENDOTP_API, {
@@ -45,8 +44,8 @@ export const sendOtp = async (email, navigate, dispatch) => {
             toast.error('OTP could not sent');
         }
 
-        // toast.dismiss(toastId);
-        // dispatch(setLoading(false));
+        toast.dismiss(toastId);
+        dispatch(setLoading(false));
         return true;
 }
 
@@ -209,20 +208,3 @@ export const resetPassword = (password, confirmPassword, token, navigate) => {
     }
 }
 
-export async function checkToken(token) {
-    try {
-
-        const response = await apiConnector("GET", "/",  null, {
-            Authorization: `Bearer ${token}`
-        });
-
-        console.log("Token Checking Data: ", response);
-
-        if (!response.data.success) {
-            localStorage.clear();
-        }
-
-    } catch (error) {
-        console.log(error);
-    }
-}

@@ -39,7 +39,6 @@ const EnrolledCourse = () => {
     useEffect(() => {
         getEnrolledCourse();
     },[])
-
     
 
   return (
@@ -48,7 +47,7 @@ const EnrolledCourse = () => {
 
         {
             !enrolledCourses ? (
-                <div className='grid h-[10vh] w-full place-items-center text-richblack-5'>Loading...</div>
+                <div className='spinner'></div>
             ) : 
             !enrolledCourses.length? (<p className='text-center text-richblack-100'>You have not enrolled in any courses yet!</p>)
             : (

@@ -6,7 +6,7 @@ exports.lectureCompletion = async (req, res) => {
         const {courseId, subSectionId} = req.body;
         const userId = req.user.id;
 
-        // console.log(courseId, subSectionId, userId)
+        console.log(courseId, subSectionId, userId)
 
         let courseProgress = await CourseProgress.findOne({courseId: courseId, userId: userId});
 

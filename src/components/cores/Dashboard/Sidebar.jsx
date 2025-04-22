@@ -22,7 +22,7 @@ const Sidebar = () => {
 
   if (profileLoading || authLoading) {
     return (
-      <div className='mt-10'>
+      <div className='spinner'>
         Loading...
       </div>
     )

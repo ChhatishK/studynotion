@@ -80,10 +80,10 @@ input, textarea {
   }
 
   .yellowButton {
-    @apply cursor-pointer rounded-md bg-yellow-50 px-[20px] py-[8px] font-semibold text-richblack-900;
+    @apply cursor-pointer rounded-md bg-yellow-50 px-[20px] py-[8px] font-semibold text-richblack-900 hover:scale-95 transition-all duration-200;
   }
   .blackButton {
-    @apply cursor-pointer rounded-md bg-richblack-800 px-[20px] py-[8px] font-semibold text-richblack-5;
+    @apply cursor-pointer rounded-md bg-richblack-800 px-[20px] py-[8px] font-semibold text-richblack-5 hover:scale-95 transition-all duration-200;
   }
 
   .section_heading {
@@ -97,4 +97,33 @@ input, textarea {
   progress::-webkit-progress-value {
     background-color: #358137;
     border-radius: 10px;
+  }
+
+  .spinner {
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    border: 8px solid white;
+    border-top: 8px solid  #0c2e45;
+    animation: loading linear infinite 0.5s;
+    /* animation-timing-function: cubic-bezier(0.3, 0.5, 0.2, 0.5); */
+    /* animation-name: loading;
+    animation-iteration-count: infinite;
+    animation-duration: 0.5s; */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  @keyframes loading {
+    0%{
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(180deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }

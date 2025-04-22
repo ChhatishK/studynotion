@@ -147,7 +147,7 @@ const VideoDetails = () => {
           disabled={loading}
           >
             Prev
-          </button>
+          </button> 
 
           <button
             className={`yellowButton ${isLastVideo ? "cursor-not-allowed" : "cursor-pointer"}`}
@@ -164,11 +164,12 @@ const VideoDetails = () => {
       </div>
       
       {!videoData ? (
-        <img 
-          src={previewSource} 
-          alt='Preview' 
-          className='h-full w-full rounded-md object-cover'
-        />
+        // <img 
+        //   src={previewSource} 
+        //   alt='Preview' 
+        //   className='h-full w-full rounded-md object-cover'
+        // />
+        <div className='spinner'></div>
 
       ): (
         <Player 
