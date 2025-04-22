@@ -31,6 +31,7 @@ createRoot(document.getElementById('root')).render(
             <App />
             <Toaster 
               position="top-right"
+              // origin="top-right"
               toastOptions={{
                 duration: 3000,
                 style: {

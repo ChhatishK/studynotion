@@ -6,6 +6,7 @@ import IconBtn from '../../common/IconBtn';
 import { updateCompletedLectures } from '../../../slices/viewCourseSlice';
 import { markLectureAsComplete } from '../../../services/operations/courseDetailsAPI';
 import toast from 'react-hot-toast';
+import 'video-react/dist/video-react.css';
 
 const VideoDetails = () => {
 
@@ -129,7 +130,7 @@ const VideoDetails = () => {
   }
 
   return (
-    <div className='flex flex-col text-white'>
+    <div className='flex flex-col border'>
 
       <div className='flex justify-between mt-5 mb-4 gap-3'>
         <button onClick={() => navigate('/dashboard/enrolled-courses')}
@@ -160,9 +161,10 @@ const VideoDetails = () => {
             Next
           </button>
         </div>
-          
       </div>
-      
+
+      {!videoData && <div className='spinner'></div>}
+
       {!videoData ? (
         // <img 
         //   src={previewSource} 
@@ -178,8 +180,8 @@ const VideoDetails = () => {
           aspectRatio="16:9"
           ref={playerRef}
           playsInline
+          style={{width: "100%", height: "100%"}}
          >
-          <source src={videoData?.videoUrl}/>
           <BigPlayButton position='center' />
 
           {videoEnded && (
@@ -231,6 +233,8 @@ const VideoDetails = () => {
           )}
          </Player>
       )}
+
+
 
       <h1 className='text-3xl mt-4 font-semibold'>{videoData?.title}</h1>
       <span className='text-sm text-richblack-300 pb-6 pt-2'>{videoData?.description}</span>
