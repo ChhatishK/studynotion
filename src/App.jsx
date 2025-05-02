@@ -24,7 +24,7 @@ const Settings = lazy(() => import('./components/cores/Dashboard/Settings'))
 const Contactus = lazy(() => import('./pages/Contactus'))
 const EnrolledCourse = lazy(() => import('./components/cores/Dashboard/EnrolledCourse'))
 const Cart = lazy(() => import('./components/cores/Dashboard/Cart/Cart'))
-const AddCourse = lazy(() => import('./components/cores/Dashboard/AddCourses/index'))
+const AddCourse = lazy(() => import('./components/cores/Dashboard/AddCourses').then(module => ({ default: module.AddCourse })))
 const MyCourses = lazy(() => import('./components/cores/Dashboard/MyCourses'))
 const EditCourse = lazy(() => import('./components/cores/Dashboard/AddCourses/EditCourse'))
 const Catalog = lazy(() => import('./pages/Catalog'))
@@ -38,7 +38,7 @@ const App = () => {
   const {token} = useSelector((state) => state.auth);
 
   return (
-    <div className="relative w-screen min-h-screen bg-richblack-900 flex flex-col font-medium text-richblack-5">
+    <div className="relative w-screen min-h-screen bg-richblack-900 flex flex-col font-medium text-richblack-50">
       <Navbar />
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>

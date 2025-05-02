@@ -43,11 +43,13 @@ const EnrolledCourse = () => {
 
   return (
     <div className='relative'>
-        <div className='text-3xl text-richblack-100 font-normal mb-8'>Enrolled Courses</div>
+        <div className={`text-3xl text-richblack-100 font-normal mb-8`}>Enrolled Courses</div>
 
         {
             !enrolledCourses ? (
-                <div className='spinner'></div>
+                <div className='grid place-items-center h-[calc(100vh-15rem)]'>
+                    <div className='spinner'></div>
+                </div>
             ) : 
             !enrolledCourses.length? (<p className='text-center text-richblack-100'>You have not enrolled in any courses yet!</p>)
             : (
@@ -68,7 +70,7 @@ const EnrolledCourse = () => {
                                 className='flex w-[45%] cursor-pointer items-center gap-4 px-5 py-3'>
                                     <div className='flex gap-4'>
                                         <img src={course.thumbnail} alt="Thumnail" className='w-14 h-14 rounded-lg object-cover' />
-                                        <div className='flex max-w-xs flex-col gap-2'>
+                                        <div className='flex max-w-[200px] flex-col gap-2'>
                                             <p className='font-semibold'>{course.courseName}</p>
                                             <p className='hidden lg:flex text-xs text-richblack-300'>{course.courseDescription.length > 50 ? `${course.courseDescription.slice(0, 50)}...` : course.courseDescription}</p>
                                         </div>

@@ -32,10 +32,6 @@ exports.updateProfile = async (req, res) => {
             gender:gender,about:about,contactNumber:contactNumber, dateOfBirth:dob
         }, {new: true})
 
-        if (firstName || lastName) {
-
-        }
-
         const updatedUser = await User.findByIdAndUpdate({_id: userId}, {
             $set: {firstName, lastName}
         }, {new: true}).populate('additionalDetails').exec()

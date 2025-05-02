@@ -1,6 +1,9 @@
 import RenderSteps from './RenderSteps';
 
 export function AddCourse() {
+
+    console.log("Add courses rendering....")
+
     return (
         <>
             <div className='flex items-start w-full gap-x-6'>

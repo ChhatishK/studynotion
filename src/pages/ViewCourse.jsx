@@ -57,7 +57,7 @@ const ViewCourse = memo(() => {
 
     return (
         <div className="min-h-screen bg-richblack-900">
-            <div className='relative flex items-center min-h-[calc(100vh-3.5rem)]'>
+            <div className='relative flex items-center h-[calc(100vh - 3.5rem)]'>
                 <VideoDetailsSidebar setReviewModal={setReviewModal} />
                 <div className="h-[calc(100vh-3.5rem)] flex-1 overflow-auto">
                     <div className="mx-auto w-11/12 py-10">

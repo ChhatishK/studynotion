@@ -10,7 +10,7 @@ import {apiConnector} from '../../../services/apiconnector'
 const ReviewSlider = () => {
 
     const [reviews, setReviews] = useState([]);
-    const truncateWords = 15;
+    // const truncateWords = 15;
     const enableLoop = reviews.length > 3;
 
     useEffect(() => {

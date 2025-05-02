@@ -130,7 +130,7 @@ const VideoDetails = () => {
   }
 
   return (
-    <div className='flex flex-col border'>
+    <div className='flex flex-col'>
 
       <div className='flex justify-between mt-5 mb-4 gap-3'>
         <button onClick={() => navigate('/dashboard/enrolled-courses')}
@@ -142,8 +142,11 @@ const VideoDetails = () => {
           <button
           className={`blackButton`}
           onClick={() => {
-            !isFirstVideo && previousVideo
-            toast.error("You are on first Lecture.")
+            if (isFirstVideo()) {
+              toast.error("You are on first Lecture.")
+            } else {
+              previousVideo()
+            }
           }}
           disabled={loading}
           >
@@ -154,8 +157,11 @@ const VideoDetails = () => {
             className={`yellowButton ${isLastVideo ? "cursor-not-allowed" : "cursor-pointer"}`}
             disabled={loading}
             onClick={() => {
-              !isLastVideo && nextVideo
-              toast.error("You are on last video.")
+              if (!isLastVideo()) {
+                nextVideo()
+              } else {
+                toast.error("You are on last video.")
+              }
             }}
           >
             Next
@@ -181,6 +187,7 @@ const VideoDetails = () => {
           ref={playerRef}
           playsInline
           style={{width: "100%", height: "100%"}}
+          animationLoading={true}
          >
           <BigPlayButton position='center' />
 
