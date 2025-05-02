@@ -6,6 +6,7 @@ import Navbar from './components/common/Navbar'
 import OpenRoute from './components/cores/Auth/openRoute'
 import PrivateRoute from './components/cores/Auth/PrivateRoute'
 import LoadingSpinner from './components/common/LoadingSpinner'
+import useDocumentTitle from './hooks/useDocumentTitle'
 
 // Lazy load all route components
 const Home = lazy(() => import('./pages/Home'))
@@ -36,6 +37,9 @@ const Instructor = lazy(() => import('./components/cores/Dashboard/instructorDas
 const App = () => {
   const {user} = useSelector((state) => state.profile);
   const {token} = useSelector((state) => state.auth);
+  
+  // Add the document title hook
+  useDocumentTitle();
 
   return (
     <div className="relative w-screen min-h-screen bg-richblack-900 flex flex-col font-medium text-richblack-50">
